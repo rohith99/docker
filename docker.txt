@@ -1,0 +1,17 @@
+#Install Java
+FROM centos
+WORKDIR -p app
+RUN yum install -y wget
+RUN yum -y install java
+RUN java -version
+WORKDIR /app/tomcat
+                                RUN wget http://www-us.apache.org/dist/tomcat/tomcat-7/v7.0.70/bin/apache-
+                                tomcat-7.0.70.tar.gz
+RUN tar xzf apache-tomcat-7.0.70.tar.gz
+RUN wget http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war
+RUN cp -r jenkins.war /app/tomcat/apache-tomcat-7.0.70/webapps
+
+# Set environment variable for Apache tomcat
+ENV CATALINA_HOME /app/tomcat/apache-tomcat-7.0.70
+ENV PATH $PATH:$CATALINA_HOME/bin
+ENV JENKINS_HOME /app/jenkins
